@@ -4,7 +4,7 @@
   },
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/home",
+      "DownstreamPathTemplate": "/api/home/{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -12,7 +12,7 @@
           "Port": 7018
         }
       ],
-      "UpstreamPathTemplate": "/api/inventory",
+      "UpstreamPathTemplate": "/api/inventory/{everything}",
       "UpstreamHttpMethod": [ "DELETE", "POST", "PUT", "GET" ]
     },
     {

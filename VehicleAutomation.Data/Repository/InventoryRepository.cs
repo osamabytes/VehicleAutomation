@@ -22,18 +22,32 @@ namespace VehicleAutomation.Data.Repository
 
         public async Task<IEnumerable<Inventory>> CreateBulkInventory(List<InventoryVM> inventoryItems)
         {
+            var existingInventory = await _context.InventoryComponents
+            .Where(
+                x => inventoryItems.Select(i => (InventoryType)Enum.Parse(typeof(InventoryType), i.ComponentType)).Contains(x.ComponentType)
+            ).ToListAsync();
             var newInventoryItems = inventoryItems.Select(x => new Inventory
             {
                 ComponentType = (InventoryType)Enum.Parse(typeof(InventoryType), x.ComponentType),
                 Quantity = x.Quantity
-            });
-            if (!newInventoryItems.Any())
-                return null;
-            await _context.InventoryComponents.AddRangeAsync(newInventoryItems);
-            var result = await _context.SaveChangesAsync();
-            if (result <= 0)
-                return null;
-            return newInventoryItems;
+            }).Where(x => !existingInventory.Select(i => i.ComponentType).Contains(x.ComponentType)).ToList();
+            if (newInventoryItems.Any())
+            {
+                await _context.InventoryComponents.AddRangeAsync(newInventoryItems);
+                await _context.SaveChangesAsync();
+            }
+            if(existingInventory.Any())
+            {
+                foreach(var inventory in inventoryItems)
+                {
+                    var existing = existingInventory.FirstOrDefault(x => x.ComponentType == (InventoryType)Enum.Parse(typeof(InventoryType), inventory.ComponentType));
+                    if (existing != null)
+                        existing.Quantity += inventory.Quantity;
+                }
+                _context.InventoryComponents.UpdateRange(existingInventory);
+                await _context.SaveChangesAsync();
+            }
+            return newInventoryItems.Concat(existingInventory).ToList();
         }
 
         public async Task<Inventory> CreateInventory(InventoryVM inventoryVM)
