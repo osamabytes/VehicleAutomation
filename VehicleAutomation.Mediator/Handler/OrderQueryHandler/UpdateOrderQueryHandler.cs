@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using VehicleAutomation.Domain.IService;
 using VehicleAutomation.Domain.Model;
-using VehicleAutomation.Mediator.Query;
+using VehicleAutomation.Mediator.Query.OrderQuery;
 
-namespace VehicleAutomation.Mediator.Handler
+namespace VehicleAutomation.Mediator.Handler.OrderQueryHandler
 {
     public class UpdateOrderQueryHandler : IRequestHandler<UpdateOrderQuery, Order>
     {

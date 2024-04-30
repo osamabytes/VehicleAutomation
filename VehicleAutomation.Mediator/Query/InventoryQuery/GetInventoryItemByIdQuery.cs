@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VehicleAutomation.Domain.ViewModel;
 
-namespace VehicleAutomation.Mediator.Query
+namespace VehicleAutomation.Mediator.Query.InventoryQuery
 {
-    public class DeleteOrderQuery : IRequest<bool>
+    public class GetInventoryItemByIdQuery : IRequest<InventoryVM>
     {
         public int Id { get; set; }
-        public DeleteOrderQuery(int id)
+        public GetInventoryItemByIdQuery(int id)
         {
             Id = id;
         }

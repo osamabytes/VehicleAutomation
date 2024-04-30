@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VehicleAutomation.Domain.ViewModel;
 
-namespace VehicleAutomation.Mediator.Query
+namespace VehicleAutomation.Mediator.Query.OrderQuery
 {
     public class GetAllOrdersByCustomerQuery : IRequest<List<OrderVM>>
     {

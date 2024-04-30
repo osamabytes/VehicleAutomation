@@ -3,6 +3,7 @@ using Serilog;
 using Serilog.Events;
 using VehicleAutomation.Data.DependencyInjection;
 using VehicleAutomation.Infrastructure.DependencyInjection;
+using VehicleAutomation.InventoryAPI.Middleware;
 using VehicleAutomation.Mediator.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,7 +41,19 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMediatorInjection();
 
 var app = builder.Build();
-
+// adding middlewares
+app.UseMiddleware<ErrorHandlingMiddlware>();
+app.UseMiddleware<CorelationIdMiddleware>();
+app.Use(async (context, next) =>
+{
+    // fetch correlation id
+    var correlationId = context.Request.Headers["X-Correlation-ID"].FirstOrDefault();
+    // add the correlationId to the serilog context
+    using (Serilog.Context.LogContext.PushProperty("correlationId", correlationId))
+    {
+        await next.Invoke();
+    }
+});
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

@@ -12,5 +12,6 @@ namespace VehicleAutomation.Data.Data
     {
         public ApplicationDbContext(DbContextOptions options): base(options) { }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Inventory> InventoryComponents { get; set; }
     }
 }
