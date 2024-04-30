@@ -24,7 +24,7 @@
           "Port": 7248
         }
       ],
-      "UpstreamPathTemplate": "/api/order/{**path}",
+      "UpstreamPathTemplate": "/api/orders/{**path}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ]
     }
   ]
