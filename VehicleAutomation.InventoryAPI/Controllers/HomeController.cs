@@ -32,7 +32,7 @@ namespace VehicleAutomation.InventoryAPI.Controllers
             return Ok(Inventory);
         }
 
-        [HttpGet("byname/{type}")]
+        [HttpGet("bytype/{type}")]
         public async Task<IActionResult> GetByType(string type)
         {
             var InventoryItems = await _mediator.Send(new GetAllInventoryItemsByTypeQuery(type));
