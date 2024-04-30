@@ -6,7 +6,7 @@ using VehicleAutomation.Mediator.Query;
 
 namespace VehicleAutomation.OrderAPI.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class HomeController : ControllerBase
     {

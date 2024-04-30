@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleAutomation.OrderAPI"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleAutomation.InventoryAPI", "VehicleAutomation.InventoryAPI\VehicleAutomation.InventoryAPI.csproj", "{1D4B9965-3B9B-474D-90AF-A89E78E0A103}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleAutomation.ApiGateway", "VehicleAutomation.ApiGateway\VehicleAutomation.ApiGateway.csproj", "{C2CF4CAF-FBA5-483E-B097-F07B34F59C43}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleAutomation.Data", "VehicleAutomation.Data\VehicleAutomation.Data.csproj", "{574D5C0E-2CA1-4E97-9F8F-8C1CFCFC02F2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleAutomation.Domain", "VehicleAutomation.Domain\VehicleAutomation.Domain.csproj", "{4D72AAD4-2F34-44D6-9410-8FDB29770457}"
@@ -16,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleAutomation.Mediator", "VehicleAutomation.Mediator\VehicleAutomation.Mediator.csproj", "{06200FE6-FC9D-4395-A21E-1E40ECF4A794}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleAutomation.Infrastructure", "VehicleAutomation.Infrastructure\VehicleAutomation.Infrastructure.csproj", "{3E94F3A9-97AE-4AFB-996B-6CFE15CB670D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleAutomation.ApiGateway", "VehicleAutomation.ApiGateway\VehicleAutomation.ApiGateway.csproj", "{712AB444-5504-452B-9F95-39C4F1BD8096}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,6 @@ Global
 		{1D4B9965-3B9B-474D-90AF-A89E78E0A103}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D4B9965-3B9B-474D-90AF-A89E78E0A103}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D4B9965-3B9B-474D-90AF-A89E78E0A103}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C2CF4CAF-FBA5-483E-B097-F07B34F59C43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2CF4CAF-FBA5-483E-B097-F07B34F59C43}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C2CF4CAF-FBA5-483E-B097-F07B34F59C43}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C2CF4CAF-FBA5-483E-B097-F07B34F59C43}.Release|Any CPU.Build.0 = Release|Any CPU
 		{574D5C0E-2CA1-4E97-9F8F-8C1CFCFC02F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{574D5C0E-2CA1-4E97-9F8F-8C1CFCFC02F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{574D5C0E-2CA1-4E97-9F8F-8C1CFCFC02F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +47,10 @@ Global
 		{3E94F3A9-97AE-4AFB-996B-6CFE15CB670D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E94F3A9-97AE-4AFB-996B-6CFE15CB670D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E94F3A9-97AE-4AFB-996B-6CFE15CB670D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{712AB444-5504-452B-9F95-39C4F1BD8096}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{712AB444-5504-452B-9F95-39C4F1BD8096}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{712AB444-5504-452B-9F95-39C4F1BD8096}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{712AB444-5504-452B-9F95-39C4F1BD8096}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
