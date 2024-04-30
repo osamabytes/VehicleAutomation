@@ -16,6 +16,7 @@ namespace VehicleAutomation.Infrastructure.DependencyInjection
             // services
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IInventoryService, InventoryService>();
+
             return services;
         }
     }

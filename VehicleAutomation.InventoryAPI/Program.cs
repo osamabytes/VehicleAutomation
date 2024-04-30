@@ -1,8 +1,11 @@
 using MassTransit;
+using Microsoft.Extensions.Options;
 using Serilog;
 using Serilog.Events;
 using VehicleAutomation.Data.DependencyInjection;
 using VehicleAutomation.Infrastructure.DependencyInjection;
+using VehicleAutomation.Infrastructure.MessageBroker;
+using VehicleAutomation.InventoryAPI.Consumer;
 using VehicleAutomation.InventoryAPI.Middleware;
 using VehicleAutomation.Mediator.DependencyInjection;
 
@@ -21,15 +24,24 @@ builder.Host.UseSerilog((ctx, lc) => lc
     .Override("Microsoft", LogEventLevel.Information)
 );
 // configure masstransit rabbitmq
-var rabbitMQEnv = builder.Configuration.GetSection("RabbitMQ");
-builder.Services.AddMassTransit(m =>
+builder.Services.Configure<MessageBrokerSettings>(builder.Configuration.GetSection("RabbitMQBroker"));
+builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<MessageBrokerSettings>>().Value);
+builder.Services.AddMassTransit(busConfigurator =>
 {
-    m.UsingRabbitMq((context, config) =>
+    // configure receiver
+    busConfigurator.AddConsumer<OrderCreatedEventConsumer>();
+    busConfigurator.UsingRabbitMq((context, configuration) =>
     {
-        config.Host($"{rabbitMQEnv["Host"]}/{rabbitMQEnv["Port"]}", rabbitMQEnv["VirtualHost"], host =>
+        MessageBrokerSettings settings = context.GetRequiredService<MessageBrokerSettings>();
+        configuration.Host(new Uri(settings.Host), host =>
         {
-            host.Username(rabbitMQEnv["username"]);
-            host.Password(rabbitMQEnv["password"]);
+            host.Username(settings.Username);
+            host.Password(settings.Password);
+        });
+        // define the queue name for receiving endpoint
+        configuration.ReceiveEndpoint("order_queue", endpoint =>
+        {
+            endpoint.ConfigureConsumer<OrderCreatedEventConsumer>(context);
         });
     });
 });

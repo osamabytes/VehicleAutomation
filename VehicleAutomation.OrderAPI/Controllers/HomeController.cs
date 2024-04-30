@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VehicleAutomation.Domain.ViewModel;
 using VehicleAutomation.Mediator.Query.OrderQuery;
+using VehicleAutomation.OrderAPI.EventBus;
 
 namespace VehicleAutomation.OrderAPI.Controllers
 {
@@ -11,9 +12,11 @@ namespace VehicleAutomation.OrderAPI.Controllers
     public class HomeController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public HomeController(IMediator mediator)
+        private readonly IEventBus _eventBus;
+        public HomeController(IMediator mediator, IEventBus eventBus)
         {
             _mediator = mediator;
+            _eventBus = eventBus;
         }
 
         [HttpGet]
@@ -47,6 +50,12 @@ namespace VehicleAutomation.OrderAPI.Controllers
             var result = await _mediator.Send(new AddOrderQuery(order));
             if (result == null)
                 return BadRequest("Error while Creating Order.");
+            await _eventBus.PublishAsync(new OrderVM
+            {
+                OrderId = result.Id,
+                CustomerName = result.CustomerName,
+                Status = result.Status.ToString()
+            });
             return Ok(result);
         }
 

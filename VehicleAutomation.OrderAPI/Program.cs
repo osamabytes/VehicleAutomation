@@ -1,9 +1,12 @@
 using MassTransit;
+using Microsoft.Extensions.Options;
 using Serilog;
 using Serilog.Events;
 using VehicleAutomation.Data.DependencyInjection;
 using VehicleAutomation.Infrastructure.DependencyInjection;
+using VehicleAutomation.Infrastructure.MessageBroker;
 using VehicleAutomation.Mediator.DependencyInjection;
+using VehicleAutomation.OrderAPI.EventBus;
 using VehicleAutomation.OrderAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,18 +24,22 @@ builder.Host.UseSerilog((ctx, lc) => lc
     .Override("Microsoft", LogEventLevel.Information)
 );
 // configure masstransit rabbitmq
-var rabbitMQEnv = builder.Configuration.GetSection("RabbitMQ");
-builder.Services.AddMassTransit(m =>
+builder.Services.Configure<MessageBrokerSettings>(builder.Configuration.GetSection("RabbitMQBroker"));
+builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<MessageBrokerSettings>>().Value);
+builder.Services.AddMassTransit(busConfigurator =>
 {
-    m.UsingRabbitMq((context, config) =>
+    busConfigurator.SetKebabCaseEndpointNameFormatter();
+    busConfigurator.UsingRabbitMq((context, configuration) =>
     {
-        config.Host($"{rabbitMQEnv["Host"]}/{rabbitMQEnv["Port"]}", rabbitMQEnv["VirtualHost"], host =>
+        MessageBrokerSettings settings = context.GetRequiredService<MessageBrokerSettings>();
+        configuration.Host(new Uri(settings.Host), host =>
         {
-            host.Username(rabbitMQEnv["username"]);
-            host.Password(rabbitMQEnv["password"]);
+            host.Username(settings.Username);
+            host.Password(settings.Password);
         });
     });
 });
+builder.Services.AddTransient<IEventBus, EventBus>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
