@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VehicleAutomation.Domain.ViewModel;
-using VehicleAutomation.Mediator.Query;
+using VehicleAutomation.Mediator.Query.OrderQuery;
 
 namespace VehicleAutomation.OrderAPI.Controllers
 {

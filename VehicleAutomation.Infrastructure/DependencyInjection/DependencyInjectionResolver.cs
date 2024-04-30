@@ -12,8 +12,10 @@ namespace VehicleAutomation.Infrastructure.DependencyInjection
         {
             // repositories
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IInventoryRepository, InventoryRepository>();
             // services
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IInventoryService, InventoryService>();
             return services;
         }
     }

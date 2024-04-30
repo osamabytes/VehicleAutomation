@@ -21,18 +21,18 @@ builder.Host.UseSerilog((ctx, lc) => lc
     .Override("Microsoft", LogEventLevel.Information)
 );
 // configure masstransit rabbitmq
-//var rabbitMQEnv = builder.Configuration.GetSection("RabbitMQ");
-//builder.Services.AddMassTransit(m =>
-//{
-//    m.UsingRabbitMq((context, config) =>
-//    {
-//        config.Host($"{rabbitMQEnv["Host"]}/{rabbitMQEnv["Port"]}", rabbitMQEnv["VirtualHost"], host =>
-//        {
-//            host.Username(rabbitMQEnv["username"]);
-//            host.Password(rabbitMQEnv["password"]);
-//        });
-//    });
-//});
+var rabbitMQEnv = builder.Configuration.GetSection("RabbitMQ");
+builder.Services.AddMassTransit(m =>
+{
+    m.UsingRabbitMq((context, config) =>
+    {
+        config.Host($"{rabbitMQEnv["Host"]}/{rabbitMQEnv["Port"]}", rabbitMQEnv["VirtualHost"], host =>
+        {
+            host.Username(rabbitMQEnv["username"]);
+            host.Password(rabbitMQEnv["password"]);
+        });
+    });
+});
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
