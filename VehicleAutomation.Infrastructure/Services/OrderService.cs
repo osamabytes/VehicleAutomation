@@ -10,7 +10,7 @@ using VehicleAutomation.Domain.ViewModel;
 
 namespace VehicleAutomation.Infrastructure.Services
 {
-    public class OrderService: IOrderService
+    public class OrderService : IOrderService
     {
         private readonly IOrderRepository _orderRepository;
         public OrderService(IOrderRepository orderRepository)

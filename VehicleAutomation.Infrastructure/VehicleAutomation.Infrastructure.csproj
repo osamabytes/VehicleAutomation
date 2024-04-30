@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VehicleAutomation.Data\VehicleAutomation.Data.csproj" />
-    <ProjectReference Include="..\VehicleAutomation.Domain\VehicleAutomation.Domain.csproj" />
   </ItemGroup>
 
 </Project>
