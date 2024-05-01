@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using VehicleAutomation.Domain.ViewModel;
+using VehicleAutomation.WebUI.Enum;
 using VehicleAutomation.WebUI.Models;
 
 namespace VehicleAutomation.WebUI.Controllers
@@ -50,6 +53,8 @@ namespace VehicleAutomation.WebUI.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
+            var orderStatuses = System.Enum.GetValues<OrderStatusEnum>();
+            ViewBag.OrderStatusList = orderStatuses;
             return View();
         }
 
@@ -62,13 +67,19 @@ namespace VehicleAutomation.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var response = await _httpClient.PostAsJsonAsync<Order>($"{_baseUrl}/create", order);
+                var response = await _httpClient.PostAsJsonAsync<OrderVM>($"{_baseUrl}/create", new OrderVM
+                {
+                    CustomerName = order.CustomerName,
+                    Status = order.Status.ToString()
+                });
 
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction(nameof(Index));
                 }
             }
+            var orderStatuses = System.Enum.GetValues<OrderStatusEnum>();
+            ViewBag.OrderStatusList = orderStatuses;
             return View(order);
         }
 

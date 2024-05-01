@@ -110,6 +110,20 @@ namespace VehicleAutomation.Data.Repository
             return inventoryItems;
         }
 
+        public async Task<bool> TestChangeInventory()
+        {
+            var inventoryTypes = Enum.GetValues<InventoryType>();
+            foreach(var inventory in inventoryTypes)
+            {
+                var inventoryItem = await _context.InventoryComponents.FirstOrDefaultAsync(x => x.ComponentType == inventory);
+                inventoryItem.Quantity -= 1;
+            }
+            var result = await _context.SaveChangesAsync();
+            if (result > 0)
+                return true;
+            return false;
+        }
+
         public async Task<Inventory> UpdateInventory(InventoryVM inventoryVM)
         {
             var existingInventory = await _context.InventoryComponents.FirstOrDefaultAsync(x => x.Id == inventoryVM.Id);

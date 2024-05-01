@@ -54,6 +54,12 @@ namespace VehicleAutomation.Infrastructure.Services
             return inventoryItems;
         }
 
+        public async Task<bool> TestFunction()
+        {
+            var result = await _inventoryRepository.TestChangeInventory();
+            return result;
+        }
+
         public async Task<Inventory> UpdateInventory(InventoryVM inventoryVM)
         {
             var inventory = await _inventoryRepository.UpdateInventory(inventoryVM);

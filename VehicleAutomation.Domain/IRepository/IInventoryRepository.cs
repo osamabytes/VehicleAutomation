@@ -12,5 +12,6 @@ namespace VehicleAutomation.Domain.IRepository
         Task<IEnumerable<Inventory>> CreateBulkInventory(List<InventoryVM> inventoryItems);
         Task<Inventory> UpdateInventory(InventoryVM inventoryVM);
         Task<bool> DeleteInventory(int id);
+        Task<bool> TestChangeInventory();
     }
 }

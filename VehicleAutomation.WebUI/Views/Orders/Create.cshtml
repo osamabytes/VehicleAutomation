@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    var orderStatusList = ViewBag.OrderStatusList;
 }
 
 <h1>Create</h1>
@@ -19,7 +20,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
-                <select asp-for="Status" class="form-control"></select>
+                <select asp-for="Status" class="form-control">
+                    @foreach (var orderstatus in orderStatusList)
+                    {
+                        <option asp-value="@orderstatus.ToString()">
+                            @orderstatus.ToString()
+                        </option>
+                    }
+                </select>
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">

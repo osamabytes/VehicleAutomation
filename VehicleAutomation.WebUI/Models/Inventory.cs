@@ -1,4 +1,4 @@
-﻿using VehicleAutomation.WebUI.Enum;
+﻿using VehicleAutomation.WebUI.Enums;
 
 namespace VehicleAutomation.WebUI.Models
 {

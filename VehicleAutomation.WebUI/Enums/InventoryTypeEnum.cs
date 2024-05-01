@@ -1,4 +1,4 @@
-﻿namespace VehicleAutomation.WebUI.Enum
+﻿namespace VehicleAutomation.WebUI.Enums
 {
     public enum InventoryTypeEnum
     {
